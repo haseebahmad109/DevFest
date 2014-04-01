@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+
+ <div class="container">
+    <div class="row middle-margin" >
+        <div class="col-xs-12">
+            <div class="row ">
+                <div class="col-xs-10 ">
+                <form action="/add_quiz" enctype="multipart/form-data" method="post">{% csrf_token %}
+                <label>Course Name</label>
+                <div>
+                    <select id="id_name" name="name" class="form-control input-lg">
+                        {% for c in courses %}
+                            <option value="{{ c.id }}">{{ c.name }} ( {{ c.code }} )</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label>Title</label>
+                <div>
+                    <span id="couse-description-error" class="error">{{ form.title.errors }}</span>
+                    <input name="title" class="form-control input-lg" type="text" />
+                </div>
+                <label>Weightage</label>
+                <div>
+                    <span id="couse-description-error" class="error">{{ form.weightage.errors }}</span>
+                    <input name="weightage" class="form-control input-lg" type="text" />
+                </div>
+                <br>
+                <div>
+                    <div>
+                        Question
+                        <input placeholder="Question 1" name="question1" class="form-control input-lg" type="text" />
+                        <div>
+                            <input placeholder="Option 1" name="1q1" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 2" name="2q1" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 3" name="3q1" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 4" name="4q1" class="form-control input-sm" type="text" />
+                        </div><br>
+                        Correct Answer : <input name="answer1" class="input-sm" type="number" />
+                    </div>
+
+                    <div>
+                        Question
+                        <input placeholder="Question 2" name="question2" class="form-control input-lg" type="text" />
+                        <div>
+                            <input placeholder="Option 1" name="1q2" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 2" name="2q2" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 3" name="3q2" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 4" name="4q2" class="form-control input-sm" type="text" />
+                        </div><br>
+                        Correct Answer : <input name="answer2" class="input-sm" type="number" />
+                    </div>
+
+                    <div>
+                        Question
+                        <input placeholder="Question 3" name="question3" class="form-control input-lg" type="text" />
+                        <div>
+                            <input placeholder="Option 1" name="1q3" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 2" name="2q3" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 3" name="3q3" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 4" name="4q3" class="form-control input-sm" type="text" />
+                        </div><br>
+                        Correct Answer : <input name="answer3" class="input-sm" type="number" />
+                    </div>
+
+                    <div>
+                        Question
+                        <input placeholder="Question 4" name="question4" class="form-control input-lg" type="text" />
+                        <div>
+                            <input placeholder="Option 1" name="1q4" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 2" name="2q4" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 3" name="3q4" class="form-control input-sm" type="text" />
+                            <input placeholder="Option 4" name="4q4" class="form-control input-sm" type="text" />
+                        </div><br>
+                        Correct Answer : <input name="answer4" class="input-sm" type="number" />
+                    </div>
+                </div>
+                 <div id="submit-button">
+                     <button class="btn btn-lg expand btn-primary" type="submit" value="Add">Add</button>
+                 </div>
+            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

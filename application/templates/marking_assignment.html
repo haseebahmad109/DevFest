@@ -1,0 +1,48 @@
+{% extends "master.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block login %}
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+<div class="container">
+    <div class="row middle-margin " >
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div class="text-center bottom-border">
+                <h2>Assignments</h2>
+            </div>
+            {% for assign in all_assignments %}
+            <div class="course bottom-border" style="padding-bottom: 15px; margin-bottom: 15px;">
+                <div class="row">
+                  <div class="col-xs-10 col-md-8 col-sm-12 name-box panel-body">
+                      <form action="#" method="post">{% csrf_token %}
+                          <span class="marg-around" ><b>{{ assign.student_id.get_full_name }}</b></span>
+                          <a target="_blank" class="marg-around" href="/media/{{ assign.submission_file }}">{{ assign.submission_file }}</a>
+                          {% if assign.marks %}
+                          <input name="marks"  value="{{ assign.marks }}" class="marg-around input-sm" max="10" min="0" type="number" />
+                          {% else %}
+                              <input name="marks" placeholder="Marks"  class="marg-around input-sm" max="10" min="0" type="number" />
+                          {% endif %}
+                          <input name="which_assignment" type="hidden" value="{{ assign.id }}" />
+                          <input class="marg-around btn btn-primary btn-sm" style="margin-bottom: 15px;"  type="submit" />
+                      </form>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+

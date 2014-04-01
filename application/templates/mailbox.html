@@ -1,0 +1,85 @@
+{% extends "master.html" %}
+{% load staticfiles %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block login %}
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+<div class="container">
+    <div class="row middle-margin " >
+
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div class="text-center bottom-border">
+                <h2>MAIL BOX</h2>
+            </div>
+            {% for m in all_messages %}
+            <div class="course bottom-border" style="padding-bottom: 15px; margin-bottom: 15px;">
+                <div class="row">
+                  <div class="col-xs-8 col-md-2 hidden-sm hidden-xs">
+                      <img style="width: 80px;height: 80px;" data-src="holder.js/200x200" class="img-responsive" alt="200x200" src="{% static "images/free-vector-question-mark-silver-clip-art_110360_Question_Mark_Silver_clip_art_hight.png" %}" >
+                        <br>
+                      <div class="row">
+                          {% if m.askedby.id == user.id %}
+                        <div class="col-xs-8 col-xs-offset-1 text-center">
+                            <b> {{ m.askedfrom.get_full_name }}</b>
+                        </div>
+                          {% else %}
+                              <div class="col-xs-8 col-xs-offset-1 text-center">
+                            <b> {{ m.askedby.get_full_name }}</b>
+                        </div>
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-xs-offset-4 col-sm-8 col-sm-offset-6 hidden-lg hidden-md">
+                        <img style="width: 80px;height: 80px;" data-src="holder.js/200x200" class="img-responsive" alt="200x200" src="{% static "images/free-vector-question-mark-silver-clip-art_110360_Question_Mark_Silver_clip_art_hight.png" %}" style="width: 200px; height: 200px;">
+                        <br>
+                      <div class="row">
+                        {% if m.askedby.id == user.id %}
+                        <div class="col-xs-8 col-xs-offset-1 text-center">
+                            <b> {{ m.askedfrom.get_full_name }}</b>
+                        </div>
+                            {% else %}
+                             <div class="col-xs-8 col-xs-offset-1 text-center">
+                            <b> {{ m.askedby.get_full_name }}</b>
+                        </div>
+                          {% endif %}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-8 col-sm-12">
+
+                      <div class="text-center panel-body">
+                        <span>{{m.firstmessage}}</span>
+                      </div>
+
+                  </div>
+                    <a class="pull-right btn btn-primary btn-sm" href="/messageview?questid={{ m.id }}">Open</a>
+                    <br><br><br><br><br><br>
+                    <form action="/rate" method="post">{% csrf_token %}<input name="questid" type="hidden" value="{{ m.id }}" />
+                        <input name="raterer" type="hidden" value="{{ user.id }}" />
+                        {% if user.user_type == "Student" %}
+                            <input name="ratinggiven" type="number" max="5" min="0" value="{{ m.ratingofstudent }}" />
+                        {% else %}
+                            <input name="ratinggiven" type="number" max="5" min="0" value="{{ m.ratingofteacher }}" />
+                        {% endif %}
+                        <button type="submit" class="btn-primary btn btn-sm">rate</button>
+                        </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+

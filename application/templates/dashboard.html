@@ -1,0 +1,86 @@
+{% extends "master.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block login %}
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+<div class="container">
+    <div class="row middle-margin " >
+        <div class="col-lg-3 col-md-2 hidden-sm hidden-xs">
+            <div class="row">
+                <div class="col-xs-12 name-box panel-body">
+                    <div class="text-center">{{ user.get_full_name }}</div>
+                </div>
+                <div class="container col-xs-8 col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 name-below-box panel-body">
+                    <div class="row">
+                        <div class="bottom-border col-lg-10 col-lg-offset-1 ">
+                            <div class="text-center">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                Full Name (<a>edit</a>)
+                                <h4 style="word-wrap: break-word;">{{ user.get_full_name }}</h4>
+                            </div>
+                        </div>
+                        <div class="bottom-border col-lg-10 col-lg-offset-1 ">
+                            <div class="text-center">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                Email (<a>edit</a>)
+                                <h4 style="word-wrap: break-word;"> {{user.email }}</h4>
+                            </div>
+                        </div>
+
+                        <div col-lg-10 col-lg-offset-1 >
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div class="text-center bottom-border">
+                <h2>CURRENT COURSES</h2>
+            </div>
+            {% for co in all_courses %}
+            <div class="course bottom-border" style="padding-bottom: 15px; margin-bottom: 15px;">
+                <div class="row">
+                  <div class="col-xs-12 col-md-4 hidden-sm hidden-xs">
+                      <img data-src="holder.js/200x200" class="" alt="200x200" src="/media/{{ co.coursepic }}" style="width: 200px; height: 200px;">
+                  </div>
+                  <div class="col-xs-12 col-xs-offset-2 col-sm-8 col-sm-offset-4 hidden-lg hidden-md">
+                        <img data-src="holder.js/200x200" class="" alt="200x200" src="/media/{{ co.coursepic }}" style="width: 200px; height: 200px;">
+                  </div>
+                  <div class="col-xs-12 col-md-8 col-sm-12">
+                      <span ><b>{{ co.taughtby.get_full_name }}</b></span>
+                      <p><a class="text-primary" href="/course/{{ co.id }}"><h3>{{ co.name }}</h3></a></p>
+                      {% if user.user_type == "Student" %}
+                      <div class="name-box text-center panel-body">
+                        {% for key,value in all_marks.items %}
+                            {% if key == co.id %}
+                                <span>Your current grade: <b>{{ value }}%</b>. Grade required for a Certificate: <b>60%</b>.</span>
+                            {% endif %}
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                          <p class="text-left" >{{ co.description }}</p>
+                      {% endif %}
+
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+

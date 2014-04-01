@@ -1,0 +1,135 @@
+{% extends "master.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+
+ <div class="container">
+    <div class="row middle-margin " >
+
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div class="text-center bottom-border">
+                <h2>{{ course.name }}</h2>
+            </div>
+            <div class="course bottom-border " style="margin-bottom: 10px;padding-bottom: 20px;">
+                <div class="row">
+                  <div class="col-xs-12 col-md-4 hidden-sm hidden-xs">
+                      <img data-src="holder.js/200x200" class="" alt="200x200" src="/media/{{ course.coursepic }}" style="width: 200px; height: 200px;">
+                      <br><br>
+                      {% if user.user_type == "Student" and not alreay_registered %}
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-3">
+                            <form action="/register_course" method="post">{% csrf_token %}
+                                <button name="register" type="submit" value="{{ course.id }}" class="btn btn-primary ">Register</button>
+                            </form>
+                        </div>
+                      </div>
+                      {% endif %}
+                  </div>
+                  <div class="col-xs-12 col-xs-offset-2 col-sm-8 col-sm-offset-4 hidden-lg hidden-md">
+                        <img data-src="holder.js/200x200" class="" alt="200x200" src="/media/{{ course.coursepic }}" style="width: 200px; height: 200px;">
+                        <br><br>
+                      {% if user.user_type == "Student" and not alreay_registered  %}
+                      <div class="row">
+                        <div class="col-xs-8 col-xs-offset-3">
+                            <form action="/register_course" method="post">{% csrf_token %}
+                                <button name="register" type="submit" value="{{ course.id }}" class="btn btn-primary ">Register</button>
+                            </form>
+                        </div>
+                      </div>
+                      {% endif %}
+                  </div>
+                  <div class="col-xs-12 col-md-8 col-sm-12">
+                      <b><span>{{ course.taughtby.get_full_name }}</span></b><b><span class="text-primary pull-right">{{ course.code }}</span></b>
+                      <br><br>
+                      <div class="text-left bottom-border" style="padding-bottom: 20px">
+                        <span>{{ course.description }}</span>
+                      </div>
+                  </div>
+
+
+                  <div class="col-xs-12 col-md-8 col-sm-12">
+                      <b><span>Assignments</span></b>
+                      <br>
+
+                      <div class="text-left"  >
+                        {% for assignment in assignments %}
+                        <div class="name-box panel-body" style="margin-bottom: 10px;">
+                            <h4>{{ assignment.title }}</h4>
+                            <p>{{ assignment.description }}</p>
+                            <p class="text-primary"><b>{{ assignment.weightage }}</b></p>
+                            <a target="_blank" href="/media/{{ assignment.document }}">{{ assignment.document }}</a>
+                            {% if user.user_type == "Student" %}
+                            <br><br>
+                            <div>
+                                <form action="/submit_assignment" enctype="multipart/form-data" method="post">{% csrf_token %}
+                                    <input name="submission_file" class="input-sm" type="FILE">
+                                    <button name="assignment" value="{{ assignment.id }}" class="btn-primary btn btn-sm" type="submit">Submit</button>
+                                </form>
+                            </div>
+                            {% endif %}
+                            {% if course.taughtby.user_type == 'Teacher'%}
+                            {% if course.taughtby.id == user.id  %}
+                            <a class="pull-right btn-primary btn btn-sm" href="/markassignment?assignmentid={{ assignment.id }}">Mark</a>
+                            <div class="clearfix"></div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                      </div>
+
+                      <br><br>
+                      <b><span>Notes</span></b>
+                      <br>
+
+                      <div class="text-left"  >
+                        <div class="name-box panel-body" style="margin-bottom: 10px;">
+                            {% for note in notes %}
+                                <p><a href="/media/{{ note.noteFile }}">{{ note.noteFile }}</a></p>
+                            {% endfor %}
+                            <p></p>
+                            <form action="/upload_notes" enctype="multipart/form-data" method="post"> {% csrf_token %}
+                                <input name="note_file" type="file" class="form-control input-sm" />
+                                <input name="which_course" type="hidden" value="{{ course.id }}" />
+                                <button class="pull-right btn btn-primary btn-sm" type="submit">upload</button>
+                                <div class="clearfix"></div>
+                            </form>
+
+                        </div>
+
+                      <br><br>
+                      <b><span>Quiz</span></b>
+                      <br>
+
+                       <div class="text-left"  >
+                        <div class="name-box panel-body" style="margin-bottom: 10px;">
+                            {% for quiz in quizes %}
+                                <p><a href="/quiz/{{ quiz.id }}">{{ quiz.title }}</a></p>
+                            {% endfor %}
+                            <p></p>
+
+
+                        </div>
+
+                      </div>
+
+                  </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

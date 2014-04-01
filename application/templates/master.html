@@ -1,0 +1,209 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://getbootstrap.com/examples/carousel/# -->
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+        <title>Student</title>
+        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+        <!--[if lt IE 9]-->
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <!--[endif]-->
+
+        <link href="{% static "css/style.css" %}" rel="stylesheet">
+        <style type="text/css"></style><style id="holderjs-style" type="text/css"></style>
+    </head>
+    {% block body %}
+    <body cz-shortcut-listen="true" style="">
+    <div class="navbar-wrapper">
+      <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Techify</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="/teachers">Teachers</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="#">Partners</a></li>
+              </ul>
+            {% if not user.is_authenticated %}
+              {% block login %}
+                  <div class="pull-right" style="margin-right: 20px;margin-top: 7px;"><a href="/signup"><button class="btn btn-primary">Signup</button></a></div>
+                <div class="pull-right" style="margin-right: 20px;margin-top: 7px;"><a href="/signin"><button class="btn btn-primary">Log In</button></a></div>
+
+                <div class="clearfix"></div>
+              {% endblock %}
+              {% else %}
+                <ul class="logoutDropDown navbar-right nav navbar-nav">
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown">{{ user.get_full_name }}<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/mail_box">mailBox</a></li>
+                        {% if user.user_type == "Teacher" %}
+                            <li><a href="/addcourse">Teach New Course</a></li>
+                            <li><a href="/add_assignment">Add Assignment</a></li>
+                            <li><a href="/add_quiz">Add Quiz</a></li>
+                        {% endif %}
+                        <li><a href="/logout">Logout</a></li>
+                      </ul>
+                    </li>
+                </ul>
+    <div class="clearfix"></div>
+            {% endif %}
+
+
+              {% block header %}
+              {% endblock %}
+
+            </div>
+
+            <div class="navbar-collapse collapse">
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {% block middle %}
+
+     <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iOTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iIzc3NyI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjQ1MCIgeT0iMjUwIiBzdHlsZT0iZmlsbDojN2E3YTdhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjU2cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+Rmlyc3Qgc2xpZGU8L3RleHQ+PC9zdmc+">
+          <div class="container">
+            <div class="carousel-caption">
+              <img style="height: 686px;margin: 0 auto;margin-bottom: -20px;" src="{% static "images/chromatic_dark_symbollogo_big.png" %}" class="img-responsive">
+              <h1>Connecting Student and Teachers</h1>
+              <p>Take Courses and get Help in your Studies from the Best Teachers around the World Absolutely free*</p>
+              <!-- Single button -->
+
+              <!--<div class="btn-group maindropdown">
+                  <button type="button" class="btn btn-lg btn-primary dropdown-toggle " data-toggle="dropdown">Primary <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>-->
+                <form action="/search_course" method="get">
+                    <input name="searchterm" style="text-align:center;" class="form-control input-lg" type="text" placeholder="Hit Enter to Search for Courses" >
+                </form>
+              {% comment %}<p><a class="btn btn-lg btn-primary" href="./Carousel Template for Bootstrap_files/Carousel Template for Bootstrap.htm" role="button">Sign up today</a></p>{% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="prev"></a>
+      <a class="right carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="next"></a>
+    </div><!-- /.carousel -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="/media/{{ courses_1.coursepic }}" style="width: 140px; height: 140px;">
+          <h2>{{ courses_1.name }}</h2>
+          <p>{{ courses_1.description }}</p>
+          <p><a class="btn btn-default" href="/course/{{ courses_1.id }}" role="button">View details »</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="/media/{{ courses_2.coursepic }}" style="width: 140px; height: 140px;">
+          <h2>{{ courses_2.name }}</h2>
+          <p>{{  courses_2.description  }}</p>
+          <p><a class="btn btn-default" href="/course/{{ courses_2.id }}" role="button">View details »</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" data-src="holder.js/140x140" alt="140x140" src="/media/{{ courses_3.coursepic }}" style="width: 140px; height: 140px;">
+          <h2>{{ courses_3.name }}</h2>
+          <p>{{ courses_3.description }}</p>
+          <p><a class="btn btn-default" href="/course/{{ courses_3.id }}" role="button">View details »</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Welecome to the future of Education. <span class="text-muted">It'll blow your mind.</span></h2>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{% static "images/Robot-Bee.jpg" %}">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{% static "images/sharpie_microscopic_green.jpg" %}">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">A place where Arts and Science meet. <span class="text-muted"> It is as amazing as your Imagination.</span></h2>
+          <p class="lead"></p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Where there are no Boundaries. <span class="text-muted">Between the rich and the poor.</span></h2>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="{% static "images/childlabour1.bmp" %}">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      {% endblock %}
+
+      {% block middle_second %}
+      {% endblock %}
+
+
+      <!-- FOOTER -->
+      {% block footer %}
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>© 2014 Company, Inc. · <a href="./Carousel Template for Bootstrap_files/Carousel Template for Bootstrap.htm">Privacy</a> · <a href="./Carousel Template for Bootstrap_files/Carousel Template for Bootstrap.htm">Terms</a></p>
+      </footer>
+        {% endblock %}
+
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    </body>
+    {% endblock %}
+</html>

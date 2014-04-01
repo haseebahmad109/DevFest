@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+        <title>Student</title>
+        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <!--[endif]-->
+
+        <link href="{% static "css/style.css" %}" rel="stylesheet">
+        <style type="text/css"></style><style id="holderjs-style" type="text/css"></style>
+</head>
+<body>
+    <h1 class="text-center marg-around pad-around">Teacher Fire</h1>
+    <p class="text-center marg-around pad-around">Sign up to Teacher Fire</p>
+
+    <div class="signin-box wrapp">
+        <div class="row">
+            <div class="wrapp" style="width: 80px" >
+                <img src="{% static "images/avatar_2x.png" %}" alt="" class="img-circle">
+            </div>
+        </div>
+        <br>
+        <div class="marg-around">
+            <form action="/signup2" method="post">
+                {% csrf_token %}
+                <select name="country" class="form-control input-lg" type="text" placeholder="First Name">
+                    <option>Pakistan</option>
+                    <option>India</option>
+                    <option>Afghanistan</option>
+                </select>
+                <input name="postal_code" class="form-control input-lg" type="text" placeholder="Postal Code">
+                <div style="width: 200px;margin: 0 auto;">
+                    <input id="teacher" checked="true"  type="radio" name="user_type" value="Teacher" ><label class="pad-around" for="teacher">Teacher</label>
+                    <input id="student"  type="radio" name="user_type" value="Student" ><label class="pad-around" for="student" >Student</label>
+                </div>
+                <input id="job_title" name="most_recent_job_title" class="form-control input-lg" type="text" placeholder="Recent Job Title">
+                <select id="subjects" name="subjects" class="form-control input-lg" type="password" >
+                    <option value="Math">Math</option>
+                    <option value="Accounting" >Accounting</option>
+                </select>
+                <input id="university" class="form-control input-lg" name="institution" type="text" placeholder="University">
+                <button type="submit" class="btn btn-primary expand">Sign up</button>
+            </form>
+             <a class="pull-right" style="margin-top: 10px;" href="#">Need Help?</a>
+        </div>
+
+    </div>
+
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/scrips.js" %}"></script>
+</body>
+</html>

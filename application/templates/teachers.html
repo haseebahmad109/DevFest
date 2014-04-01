@@ -1,0 +1,51 @@
+{% extends "master.html" %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block middle %}
+
+{% endblock %}
+
+{% block middle_second %}
+
+ <div class="container">
+    <div class="row middle-margin " >
+        <div class="col-lg-3 col-md-2 hidden-sm hidden-xs">
+            <div class="row">
+                <div class="col-xs-12 name-box panel-body">
+                    <div class="text-center"><form action="/search_teachers" method="get"><input name="searchterm" class="form-control input-sm" placeholder="Hit Enter to Search" type="text"></form></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+            <div class="text-center bottom-border">
+                <h2>Teachers</h2>
+            </div>
+            {% for teach in all_teachers %}
+            <div class="course bottom-border " style="margin-bottom: 10px;padding-bottom: 20px;">
+                <div class="row">
+                  <div class="col-xs-12 col-md-8 col-sm-12">
+                      <b><span >{{ teach.get_full_name }}</span></b>
+                      {% for e in teach.teacher_set.all %}
+                      <p>{{ e.most_recent_job_title }}</p>
+                      <div class="text-left">
+                        {{ e.subjects }}
+                      </div>
+                      {% endfor %}
+                  </div>
+                  <a class="btn btn-primary btn-sm" href="askquestion?sentid={{ teach.id }}">Send Message</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

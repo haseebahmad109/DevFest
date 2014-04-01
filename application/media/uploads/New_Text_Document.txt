@@ -1,0 +1,5 @@
+dark blue : #18212A
+light blue : #4FCBD7
+medium blue : #2D81D7
+
+ads:adUnitId="a14f59e5c442767"
